@@ -1,5 +1,23 @@
+
 const cells = document.querySelectorAll('.cell');
-let currentplayer = 'X';
+
+let currentplayer;
+const playerYouButton = document.getElementById('You');
+const playerComputerButton = document.getElementById('Computer');
+playerYouButton.addEventListener('click', () => {
+    currentplayer = 'X';
+    gameSection.style.display = 'block';
+    choice.style.display = 'none';
+    startGame();
+});
+playerComputerButton.addEventListener('click', () => {
+    currentplayer = 'O';
+    gameSection.style.display = 'block';
+    choice.style.display = 'none';
+    startGame();
+});
+
+function startGame() {
 let gameOver = false;
 const winComb = [ 
                 [0,1,2] , [3,4,5] , [6,7,8],
@@ -9,6 +27,9 @@ const winComb = [
 
 document.getElementById('gameStatus').innerText = `Player ${currentplayer}'s Turn`;
 console.log("currentplayer is " , currentplayer);
+if (currentplayer == 'O'){
+    aimove();
+}
 
 cells.forEach(cell => {
     cell.addEventListener('click', async function() {
@@ -131,4 +152,5 @@ function minimax(cells, depth, isMaximizing) {
 
 function isDraw() {
     return [...cells].every(cell => cell.innerText.trim() !== '');
+}
 }
